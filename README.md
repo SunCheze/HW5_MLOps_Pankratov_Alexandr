@@ -6,11 +6,11 @@ MLOps Pipeline: Воспроизводимость экспериментов (I
 Как запустить
 Для запуска проекта убедитесь, что у вас установлен Python (>=3.9) и DVC. Выполните следующие команды в терминале VS Code:
 
-# 1. Клонировать репозиторий и перейти в негоgit clone <СЮДА_ВСТАВЬТЕ_ВАШУ_ССЫЛКУ>cd <имя_папки>
-# 2. Создать и активировать виртуальное окружениеpython -m venv venvsource venv/bin/activate  (для Windows: venv\Scripts\activate)
-# 3. Установить зависимостиpip install -r requirements.txt
-# 4. Инициализация DVC (если еще не инициализировано) и скачать данные dvc initmkdir -p data/rawcurl -L -o data/raw/iris.csv https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csvdvc add data/raw/iris.csv
-# 5. Запустить пайплайн обученияdvc repro
+1. Клонировать репозиторий и перейти в негоgit clone <СЮДА_ВСТАВЬТЕ_ВАШУ_ССЫЛКУ>cd <имя_папки>
+2. Создать и активировать виртуальное окружениеpython -m venv venvsource venv/bin/activate  (для Windows: venv\Scripts\activate)
+3. Установить зависимостиpip install -r requirements.txt
+4. Инициализация DVC (если еще не инициализировано) и скачать данные dvc initmkdir -p data/rawcurl -L -o data/raw/iris.csv https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csvdvc add data/raw/iris.csv
+5. Запустить пайплайн обученияdvc repro
 
 Краткое описание пайплайна
 Пайплайн состоит из двух стадий, описанных в dvc.yaml:
@@ -21,3 +21,12 @@ train: Берет подготовленные данные, разбивает 
 Особенности архитектуры:
 Сырые данные (data/raw/iris.csv), обработанные данные (data/processed/) и модель (models/) не хранятся в Git. Вместо них в репозитории лежат легковесные .dvc файлы.
 Изменение любого файла в deps или изменение params.yaml приводит к автоматическому перезапуску зависимых стадий при команде dvc repro.
+
+
+Где смотреть UI MLflow
+По умолчанию в проекте настроен локальный трекинг MLflow. После выполнения пайплайна логи сохранятся в папку mlruns/.
+
+Чтобы открыть интерфейс, выполните команду:
+mlflow ui -p 5000
+Затем откройте в браузере: http://127.0.0.1:5000
+
